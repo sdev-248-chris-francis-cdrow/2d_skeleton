@@ -1,0 +1,233 @@
+[gd_scene load_steps=13 format=3 uid="uid://tcnh3agobd6n"]
+
+[ext_resource type="Texture2D" uid="uid://dfveq0o6fr6up" path="res://assets/skele/body.PNG" id="1_ymvsc"]
+[ext_resource type="Texture2D" uid="uid://ec8qovjupp71" path="res://assets/skele/head.PNG" id="2_rwpf0"]
+[ext_resource type="Texture2D" uid="uid://ce85hm3rboexd" path="res://assets/skele/larm.PNG" id="3_ew5mc"]
+[ext_resource type="Texture2D" uid="uid://bn7oqih58hr7n" path="res://assets/skele/lleg.PNG" id="4_vqc8v"]
+[ext_resource type="Texture2D" uid="uid://c1n1kdu81fh3l" path="res://assets/skele/rarm.PNG" id="5_ft6oh"]
+[ext_resource type="Texture2D" uid="uid://c6wwvij5qcdr6" path="res://assets/skele/rleg.PNG" id="6_x6jny"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v8jiy"]
+size = Vector2(81, 115)
+
+[sub_resource type="SkeletonModificationStack2D" id="SkeletonModificationStack2D_sh88d"]
+
+[sub_resource type="Animation" id="Animation_d56fl"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Skeleton2D/Larm:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0752685]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Skeleton2D/LLeg:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-0.853392]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Skeleton2D/RLeg:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.788681]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Skeleton2D/Rarm:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.340339]
+}
+
+[sub_resource type="Animation" id="Animation_obgqe"]
+resource_name = "idle_right"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Skeleton2D/Rarm:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 2.01, 2.98),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.340339, -0.150098, 0.993092, 0.340339]
+}
+
+[sub_resource type="Animation" id="Animation_pyp1f"]
+resource_name = "idle"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Skeleton2D/Larm:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.98, 1.98, 3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.0752685, 0.565487, -0.413643, 0.0752685]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4ixog"]
+_data = {
+&"RESET": SubResource("Animation_d56fl"),
+&"idle_left": SubResource("Animation_pyp1f"),
+&"idle_right": SubResource("Animation_obgqe")
+}
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(40.5, 57.5)
+shape = SubResource("RectangleShape2D_v8jiy")
+
+[node name="Parts" type="Node2D" parent="."]
+position = Vector2(70, 24)
+
+[node name="Body" type="Sprite2D" parent="Parts"]
+texture = ExtResource("1_ymvsc")
+
+[node name="Head" type="Sprite2D" parent="Parts"]
+texture = ExtResource("2_rwpf0")
+
+[node name="Larm" type="Sprite2D" parent="Parts"]
+position = Vector2(26.0008, 39.0001)
+rotation = 0.00368094
+scale = Vector2(1.01839, -1.61572)
+skew = -0.916475
+texture = ExtResource("3_ew5mc")
+
+[node name="Lleg" type="Sprite2D" parent="Parts"]
+texture = ExtResource("4_vqc8v")
+
+[node name="Rarm" type="Sprite2D" parent="Parts"]
+position = Vector2(1.98848, -0.0163155)
+rotation = 0.00386139
+scale = Vector2(1.00618, 1.03714)
+skew = 0.0223117
+texture = ExtResource("5_ft6oh")
+
+[node name="Rleg" type="Sprite2D" parent="Parts"]
+texture = ExtResource("6_x6jny")
+
+[node name="Skeleton2D" type="Skeleton2D" parent="."]
+visible = false
+modification_stack = SubResource("SkeletonModificationStack2D_sh88d")
+
+[node name="Body" type="Bone2D" parent="Skeleton2D"]
+position = Vector2(41, 40)
+rotation = -1.5708
+scale = Vector2(207.943, -0.0399528)
+rest = Transform2D(-9.08946e-06, -207.943, -0.0399528, 1.74639e-09, 41, 40)
+auto_calculate_length_and_angle = false
+length = 16.0
+bone_angle = 90.7822
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Skeleton2D/Body"]
+remote_path = NodePath("../../../Parts/Body")
+use_global_coordinates = false
+
+[node name="Head" type="Bone2D" parent="Skeleton2D"]
+position = Vector2(41, 40)
+rotation = 3.10982
+scale = Vector2(0.00962422, 23.614)
+rest = Transform2D(-0.00961936, 0.000305693, -0.750049, -23.6021, 41, 40)
+auto_calculate_length_and_angle = false
+length = 16.0
+bone_angle = 178.18
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Skeleton2D/Head"]
+remote_path = NodePath("../../../Parts/Head")
+use_global_coordinates = false
+
+[node name="LLeg" type="Bone2D" parent="Skeleton2D"]
+position = Vector2(40, 84)
+rotation = -0.853392
+scale = Vector2(6.68175, 0.0226903)
+skew = -0.00129855
+rest = Transform2D(4.3928, -5.03481, 0.0170975, 0.0149173, 40, 84)
+auto_calculate_length_and_angle = false
+length = 16.0
+bone_angle = 112.4
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Skeleton2D/LLeg"]
+remote_path = NodePath("../../../Parts/Lleg")
+use_global_coordinates = false
+
+[node name="RLeg" type="Bone2D" parent="Skeleton2D"]
+position = Vector2(41, 84)
+rotation = 0.788681
+scale = Vector2(5.85402, -0.0559706)
+skew = -0.0012877
+rest = Transform2D(4.12582, 4.15299, 0.0397069, -0.0394471, 41, 84)
+auto_calculate_length_and_angle = false
+length = 16.0
+bone_angle = 63.9
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Skeleton2D/RLeg"]
+remote_path = NodePath("../../../Parts/Rleg")
+use_global_coordinates = false
+
+[node name="Larm" type="Bone2D" parent="Skeleton2D"]
+position = Vector2(40, 44)
+rotation = 0.0752685
+scale = Vector2(2.46659, -0.536249)
+skew = -7.54595e-05
+rest = Transform2D(2.45961, 0.185481, 0.0403246, -0.534731, 40, 44)
+auto_calculate_length_and_angle = false
+length = 16.0
+bone_angle = -165.489
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Skeleton2D/Larm"]
+position = Vector2(23.2183, -27.4782)
+rotation = 0.318607
+scale = Vector2(0.433641, 1.74595)
+remote_path = NodePath("../../../Parts/Larm")
+
+[node name="Rarm" type="Bone2D" parent="Skeleton2D"]
+position = Vector2(42, 44)
+rotation = 0.340339
+scale = Vector2(2.39427, 2.48609)
+skew = -0.000571251
+rest = Transform2D(2.25651, 0.800429, -0.829858, 2.34349, 42, 44)
+auto_calculate_length_and_angle = false
+length = 16.0
+bone_angle = -19.0041
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Skeleton2D/Rarm"]
+position = Vector2(9.0229, -11.6161)
+rotation = -0.324862
+scale = Vector2(0.418655, 0.418655)
+remote_path = NodePath("../../../Parts/Rarm")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_4ixog")
+}
